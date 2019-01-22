@@ -7,7 +7,8 @@ block content
           .ui.stacked.segment.gameArea
             .circle.blue(
               ng-repeat="player in players",
-              ng-style="{'left': player.position.y, 'top': player.position.x}"
+              ng-style="{'left': player.position.y, 'top': player.position.x}",
+              id="{{ player.id }}"
             )
               .relative
                 span.name {{ player.username }} 

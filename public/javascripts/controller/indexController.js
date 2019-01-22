@@ -25,6 +25,7 @@ app.controller("indexController", ["$scope", "indexFactory", ($scope, indexFacto
         socket.on("initPlayers", (players) => {
             $scope.players = players;
             $scope.$apply();
+            
         });
 
         socket.on("newUser", (data) => {
