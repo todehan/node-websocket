@@ -52,6 +52,20 @@ app.controller("indexController", ["$scope", "indexFactory", ($scope, indexFacto
             $scope.messages.push(messagesData);
             $scope.$apply();
         });
+
+        let animate = false;
+        $scope.onClickPlayer = ($event) => {
+            
+            if (!animate){
+                
+                animate = true;
+                $("#"+ socket.id).animate({"left": $event.offsetX, "top": $event.offsetY}, () => {
+                    animate = false;
+                });
+            }
+
+        };
+
      }).catch((err) => {
         console.log("Hata Gerçekleşti", err)
      });
