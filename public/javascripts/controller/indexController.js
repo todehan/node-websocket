@@ -22,12 +22,27 @@ app.controller("indexController", ["$scope", "indexFactory", ($scope, indexFacto
         socket.emit("newUser", {username});
         socket.on("newUser", (data) => {
             const messagesData = {
-                type: 0,
+                type: {
+                    code: 0,
+                    message: 1
+                },
                 username: data.username
             };
             
              $scope.messages.push(messagesData);
              $scope.$apply();
+        });
+        socket.on("disUser", (data) => {
+            const messagesData = {
+                type: {
+                    code: 0,
+                    message: 0
+                },
+                username: data.username
+            };
+            console.log(data);
+            $scope.messages.push(messagesData);
+            $scope.$apply();
         });
      }).catch((err) => {
         console.log("Hata Gerçekleşti", err)
