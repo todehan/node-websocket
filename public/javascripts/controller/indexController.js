@@ -23,7 +23,8 @@ app.controller("indexController", ["$scope", "indexFactory", ($scope, indexFacto
         socket.emit("newUser", {username});
 
         socket.on("initPlayers", (players) => {
-            console.log(players);
+            $scope.players = players;
+            $scope.$apply();
         });
 
         socket.on("newUser", (data) => {
