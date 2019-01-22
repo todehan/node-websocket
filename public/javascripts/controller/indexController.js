@@ -1,5 +1,7 @@
 app.controller("indexController", ["$scope", "indexFactory", ($scope, indexFactory) => {
     
+    $scope.messages = [];
+
     $scope.init = () => {
         const username = prompt("Please enter username");
 
@@ -18,6 +20,15 @@ app.controller("indexController", ["$scope", "indexFactory", ($scope, indexFacto
         reconnectionDelay: 600        
      }).then((socket) => {
         socket.emit("newUser", {username});
+        socket.on("newUser", (data) => {
+            const messagesData = {
+                type: 0,
+                username: data.username
+            };
+            
+             $scope.messages.push(messagesData);
+             $scope.$apply();
+        });
      }).catch((err) => {
         console.log("Hata Gerçekleşti", err)
      });
