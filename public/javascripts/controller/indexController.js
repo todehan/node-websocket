@@ -1,6 +1,7 @@
 app.controller("indexController", ["$scope", "indexFactory", ($scope, indexFactory) => {
     
     $scope.messages = [];
+    $scope.players = {};
 
     $scope.init = () => {
         const username = prompt("Please enter username");
@@ -20,10 +21,15 @@ app.controller("indexController", ["$scope", "indexFactory", ($scope, indexFacto
         reconnectionDelay: 600        
      }).then((socket) => {
         socket.emit("newUser", {username});
+
+        socket.on("initPlayers", (players) => {
+            console.log(players);
+        });
+
         socket.on("newUser", (data) => {
             const messagesData = {
                 type: {
-                    code: 0,
+                    code: 0,    
                     message: 1
                 },
                 username: data.username

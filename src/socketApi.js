@@ -22,6 +22,7 @@ io.on("connection", (socket) => {
         users[socket.id] = userData;
 
         socket.broadcast.emit("newUser", userData);
+        socket.emit("initPlayers", users);
     });
 
     socket.on("disconnect", () => {
