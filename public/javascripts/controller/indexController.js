@@ -38,6 +38,7 @@ app.controller("indexController", ["$scope", "indexFactory", ($scope, indexFacto
             };
             
              $scope.messages.push(messagesData);
+             $scope.players[data.id] = data;
              $scope.$apply();
         });
         socket.on("disUser", (data) => {
@@ -50,6 +51,7 @@ app.controller("indexController", ["$scope", "indexFactory", ($scope, indexFacto
             };
             console.log(data);
             $scope.messages.push(messagesData);
+            delete $scope.players[data.id];
             $scope.$apply();
         });
 
