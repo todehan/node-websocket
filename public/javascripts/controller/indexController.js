@@ -14,6 +14,15 @@ app.controller("indexController", ["$scope", "indexFactory", ($scope, indexFacto
         }
     };
 
+    function scrollTop (){
+        
+        setTimeout(() => {
+            const element = document.getElementById("chat-area");
+            element.scrollTop = element.scrollHeight;
+
+         });
+    }
+
     function initSocket(username){
 
         indexFactory.connectSocket("http://localhost:3000", {
@@ -62,6 +71,12 @@ app.controller("indexController", ["$scope", "indexFactory", ($scope, indexFacto
             });
         });
 
+        socket.on("newMessage", data => {
+            $scope.messages.push(data);
+            $scope.$apply();
+            scrollTop();
+        });
+
 
         let animate = false;
         $scope.onClickPlayer = ($event) => {
@@ -94,11 +109,9 @@ app.controller("indexController", ["$scope", "indexFactory", ($scope, indexFacto
              $scope.messages.push(messagesData);
              $scope.message = "";
 
-             setTimeout(() => {
-                const element = document.getElementById("chat-area");
-                element.scrollTop = element.scrollHeight;
+             socket.emit("newMessage", messagesData);
 
-             });
+             scrollTop();
 
              
         };
