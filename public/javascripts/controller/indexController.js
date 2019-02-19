@@ -80,9 +80,25 @@ app.controller("indexController", ["$scope", "indexFactory", ($scope, indexFacto
 
         };
 
-     }).catch((err) => {
-        console.log("Hata Gerçekleşti", err)
-     });
+        $scope.newMessage = () => {
+            let message = $scope.message;
+
+            const messagesData = {
+                type: {
+                    code: 1
+                },
+                username: username,
+                text: message
+            };
+            
+             $scope.messages.push(messagesData);
+             $scope.message = "";
+        };
+
+
+        }).catch((err) => {
+          console.log("Hata Gerçekleşti", err)
+        });
     }
 
     

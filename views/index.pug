@@ -24,6 +24,12 @@ block content
                   | ayrıldı
                 .description.message(ng-if="message.type.message")
                   | katıldı
+
+              .content(ng-if="message.type.code") 
+                
+                a.header.name {{ message.username }} &nbsp;
+                .description.message
+                  | {{ message.text }}
             
           form.ui.action.input.fluid(ng-submit="newMessage()")
             input(ng-model='message', placeholder='Type here...')
